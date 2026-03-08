@@ -13,3 +13,4 @@ Task: style(client): update typography and base colors completed on 2026-03-06T2
 Task: fix(client): resolve responsive wrapper sizing completed on 2026-03-07T9:30:00
 Task: feat(server): setup environment variables completed on 2026-03-07T10:30:00
 Task: feat(server): create initial health endpoint completed on 2026-03-08T11:30:00
+Task: feat(server): define User model in Prisma schema completed on 2026-03-08T12:30:00
