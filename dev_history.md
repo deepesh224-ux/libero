@@ -18,3 +18,4 @@ Task: feat(server): define Product model in Prisma schema completed on 2026-03-0
 Task: feat(server): add product seeding script completed on 2026-03-09T14:30:00
 Task: style(client): enhance 3D canvas lighting completed on 2026-03-10T15:30:00
 Task: feat(client): implement basic Preloader component completed on 2026-03-10T16:30:00
+Task: feat(client): create Collection display component completed on 2026-03-11T17:30:00
