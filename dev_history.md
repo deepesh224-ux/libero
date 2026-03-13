@@ -22,3 +22,4 @@ Task: feat(client): create Collection display component completed on 2026-03-11T
 Task: refactor(client): modularize Three.js orbit controls completed on 2026-03-11T18:30:00
 Task: feat(server): create basic auth middleware completed on 2026-03-12T19:30:00
 Task: feat(server): build newsletter endpoint completed on 2026-03-12T20:30:00
+Task: fix(server): resolve CORS origin issue completed on 2026-03-13T9:30:00
