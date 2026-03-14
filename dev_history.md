@@ -25,3 +25,4 @@ Task: feat(server): build newsletter endpoint completed on 2026-03-12T20:30:00
 Task: fix(server): resolve CORS origin issue completed on 2026-03-13T9:30:00
 Task: feat(client): implement Promise and Reviews components completed on 2026-03-13T10:30:00
 Task: style(client): optimize GSAP timeline triggers completed on 2026-03-14T11:30:00
+Task: docs: write deployment strategy notes completed on 2026-03-14T12:30:00
