@@ -21,6 +21,6 @@ node src/seed.js
 # 3. Install Client Dependencies
 echo "📦 Installing client dependencies..."
 cd ../client
-npm install
+npm install --legacy-peer-deps
 
 echo "✨ Setup complete! You can now start developed mode with 'npm run dev' in both directories."
