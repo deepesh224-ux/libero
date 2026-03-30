@@ -18,12 +18,12 @@ jobs:
 
     - name: Setup Full Stack
       run: |
-        echo "🚀 Installing dependencies..."
+        echo "Installing dependencies..."
         cd server && npm install && npx prisma generate
         cd ../client && npm install
         
     - name: Verify Builds
       run: |
-        echo "✨ Checking client build..."
+        echo "Checking client build..."
         cd client && npm run build
-        echo "✅ All checks passed!"
+        echo "All checks passed!"
