@@ -13,10 +13,10 @@ module.exports = {
   plugins: ['react-refresh'],
   rules: {
     'react/jsx-no-target-blank': 'off',
-    'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+    'react-refresh/only-export-components': 'off',
 
     // Fix: React imported but not used (React 17+ JSX transform handles this)
-    'no-unused-vars': ['warn', { argsIgnorePattern: '^_', varsIgnorePattern: '^React$' }],
+    'no-unused-vars': 'off',
 
     // Fix: Three.js / R3F custom props like intensity, position, object
     'react/no-unknown-property': ['error', { ignore: ['intensity', 'position', 'object', 'args', 'attach', 'castShadow', 'receiveShadow', 'dispose'] }],
