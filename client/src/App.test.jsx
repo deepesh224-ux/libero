@@ -3,8 +3,7 @@ import App from './App';
 import { describe, it, expect, vi } from 'vitest';
 
 describe('App', () => {
-    it('renders ShopSmart title', () => {
-        // Mock fetch
+    it('renders LIBERO brand', () => {
         global.fetch = vi.fn(() =>
             Promise.resolve({
                 json: () => Promise.resolve({ status: 'ok', message: 'Test Msg', timestamp: 'now' })
@@ -12,7 +11,7 @@ describe('App', () => {
         );
 
         render(<App />);
-        const linkElement = screen.getByText(/LIBERO/i);
-        expect(linkElement).toBeInTheDocument();
+        const elements = screen.getAllByText(/^LIBERO$/i);
+        expect(elements[0]).toBeInTheDocument();
     });
 });
