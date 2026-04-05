@@ -1,34 +1,17 @@
-const express = require('express');
-const { body, validationResult } = require('express-validator');
+const router = require('express').Router();
 const prisma = require('../lib/prisma');
 
-const router = express.Router();
-
 // POST /api/newsletter
-router.post('/', [
-  body('email').isEmail().withMessage('Valid email is required'),
-], async (req, res) => {
+router.post('/', async (req, res) => {
   try {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-
     const { email } = req.body;
+    if (!email) return res.status(400).json({ error: 'Email required' });
 
-    const existing = await prisma.subscriber.findUnique({
-      where: { email: email.toLowerCase() },
-    });
-    
-    if (existing) {
-      return res.status(400).json({ error: 'Email already subscribed' });
-    }
+    const existing = await prisma.subscriber.findUnique({ where: { email } });
+    if (existing) return res.status(400).json({ error: 'Already subscribed' });
 
-    await prisma.subscriber.create({
-      data: { email: email.toLowerCase() },
-    });
-    
-    res.status(201).json({ message: 'Welcome to the LIBERO family.' });
+    await prisma.subscriber.create({ data: { email } });
+    res.json({ success: true, message: 'Subscribed! Welcome to the LIBERO legacy.' });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

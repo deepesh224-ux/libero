@@ -7,10 +7,11 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
+    
     - name: Use Node.js
       uses: actions/setup-node@v4
       with:
@@ -22,8 +23,37 @@ jobs:
         cd server && npm install && npx prisma generate
         cd ../client && npm install --legacy-peer-deps
         
-    - name: Verify Builds
+    - name: Lint and Test Server
       run: |
-        echo "Checking client build..."
-        cd client && npm run build
-        echo "All checks passed!"
+        cd server
+        npm run lint
+        npm test
+        
+    - name: Lint, Test and Build Client
+      run: |
+        cd client
+        npm run lint
+        npm test
+        npm run build
+
+  deploy:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+    - name: Deploy to EC2
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USERNAME }}
+        key: ${{ secrets.EC2_PRIVATE_KEY }}
+        script: |
+          cd /path/to/project
+          git pull origin main
+          cd server
+          npm install
+          npx prisma generate
+          pm2 restart server
+          cd ../client
+          npm install
+          npm run build
