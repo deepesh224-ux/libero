@@ -12,3 +12,10 @@ Object.defineProperty(window, 'matchMedia', {
         dispatchEvent: () => false,
     }),
 });
+
+// Mock ResizeObserver for React Three Fiber / react-use-measure
+global.ResizeObserver = class ResizeObserver {
+    observe() { }
+    unobserve() { }
+    disconnect() { }
+};
