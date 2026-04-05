@@ -27,8 +27,12 @@ model Product {
   name         String
   description  String
   price        Float
+  originalPrice Float?
   category     String
   image        String
+  badge        String?
+  rating       Float       @default(5.0)
+  reviewCount  Int         @default(0)
   countInStock Int         @default(0)
   items        OrderItem[]
   reviews      Review[]
@@ -75,4 +79,13 @@ model Subscriber {
   id           Int      @id @default(autoincrement())
   email        String   @unique
   subscribedAt DateTime @default(now())
+}
+
+model SiteReview {
+  id       Int     @id @default(autoincrement())
+  name     String
+  boot     String
+  stars    Int
+  text     String
+  verified Boolean @default(true)
 }
