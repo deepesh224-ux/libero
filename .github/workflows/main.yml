@@ -20,6 +20,8 @@ jobs:
         node-version: '20.x'
 
     - name: Setup Full Stack
+      env:
+        DATABASE_URL: "file:./dev.db"
       run: |
         echo "Installing dependencies..."
         cd server && npm install && npx prisma generate
