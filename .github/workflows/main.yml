@@ -43,7 +43,7 @@ jobs:
   deploy:
     needs: build-and-test
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    if: false
     steps:
     - name: Deploy to EC2
       uses: appleboy/ssh-action@v1.0.3
