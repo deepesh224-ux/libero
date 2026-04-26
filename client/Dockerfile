@@ -1,18 +1,23 @@
-# Use Node.js LTS image
-FROM node:20-alpine
+# Production Dockerfile for Client
+FROM node:20-alpine AS builder
 
-# Set working directory
 WORKDIR /app
 
-# Copy package.json and install dependencies
 COPY package*.json ./
-RUN npm install
+RUN npm ci
 
-# Copy rest of the code
 COPY . .
+RUN npm run build
 
-# Expose the Vite port
-EXPOSE 5173
+# Stage 2: Serve with Nginx
+FROM nginx:stable-alpine
 
-# Start Vite with --host to allow external access
-CMD ["npm", "run", "dev", "--", "--host"]
+# Copy built assets from builder stage
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+# Copy custom nginx config if you have one, or use default
+# COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
