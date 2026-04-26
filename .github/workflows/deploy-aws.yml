@@ -93,7 +93,7 @@ jobs:
           task-definition: ${{ steps.task-def-server.outputs.task-definition }}
           service: ${{ env.ECS_SERVICE_SERVER }}
           cluster: ${{ env.ECS_CLUSTER }}
-          wait-for-service-stability: true
+          wait-for-service-stability: false
 
       - name: Deploy client to Amazon ECS
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
@@ -101,4 +101,4 @@ jobs:
           task-definition: ${{ steps.task-def-client.outputs.task-definition }}
           service: ${{ env.ECS_SERVICE_CLIENT }}
           cluster: ${{ env.ECS_CLUSTER }}
-          wait-for-service-stability: true
+          wait-for-service-stability: false
