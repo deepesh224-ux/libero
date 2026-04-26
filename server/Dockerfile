@@ -24,5 +24,5 @@ COPY . .
 
 EXPOSE 5001
 
-# For production, we use a start script that doesn't use nodemon/dev tools
-CMD ["node", "src/index.js"]
+# For production, we sync the DB then start the server
+CMD npx prisma db push && node src/index.js
