@@ -1,6 +1,9 @@
 # Production Dockerfile for Server
 FROM node:20-alpine AS builder
 
+# Install OpenSSL (required by Prisma)
+RUN apk add --no-cache openssl
+
 WORKDIR /app
 
 COPY package*.json ./
@@ -14,6 +17,9 @@ COPY . .
 # RUN npm run build
 
 FROM node:20-alpine
+
+# Install OpenSSL (required by Prisma at runtime)
+RUN apk add --no-cache openssl
 
 WORKDIR /app
 
