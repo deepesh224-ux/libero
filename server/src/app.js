@@ -28,6 +28,7 @@ app.use('/api/orders',     require('./routes/orders'));
 app.use('/api/reviews',    require('./routes/reviews'));
 app.use('/api/newsletter', require('./routes/newsletter'));
 app.use('/api/cart',       require('./routes/cart'));
+app.use('/api/payment',    require('./routes/payment'));
 
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', brand: 'LIBERO Italia', timestamp: new Date().toISOString() });
