@@ -60,7 +60,7 @@ const CartDrawer = () => {
                     {cartItems.length === 0 ? (
                         <div className="cart-empty-state">
                             <h3>YOUR BAG IS EMPTY</h3>
-                            <p>Looks like you haven't added any gear yet.</p>
+                            <p>Looks like you haven&apos;t added any gear yet.</p>
                             <button className="shop-now-btn" onClick={() => { closeCart(); window.location.href='#collection'; }}>
                                 SHOP COLLECTION
                             </button>

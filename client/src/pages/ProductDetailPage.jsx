@@ -41,6 +41,7 @@ const ProductDetailPage = () => {
     useEffect(() => {
         fetchProduct();
         window.scrollTo(0, 0);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id]);
 
     const handleAddToBag = () => {
