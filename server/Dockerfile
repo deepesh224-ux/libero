@@ -28,5 +28,5 @@ COPY . .
 
 EXPOSE 5001
 
-# Sync DB schema then start the server
-CMD npx prisma db push && node src/index.js
+# Sync DB schema, seed data, then start the server
+CMD npx prisma db push && node src/seed.js && node src/index.js
