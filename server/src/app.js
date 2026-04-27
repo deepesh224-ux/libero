@@ -5,9 +5,17 @@ const morgan = require('morgan');
 
 const app = express();
 
-app.use(helmet());
+app.use(helmet({
+  crossOriginResourcePolicy: false,
+}));
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://localhost:5174', 'http://localhost:5175', 'http://localhost:3000'],
+  origin: [
+    'http://localhost:5173', 
+    'http://localhost:5174', 
+    'http://localhost:5175', 
+    'http://localhost:3000',
+    'http://football-alb-1862504128.us-east-1.elb.amazonaws.com'
+  ],
   credentials: true
 }));
 app.use(morgan('dev'));
