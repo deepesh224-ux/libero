@@ -5,11 +5,10 @@ const { protect, adminOnly } = require('../middleware/auth');
 // POST /api/orders — place order
 router.post('/', protect, async (req, res) => {
   try {
-    const { items, shippingAddress } = req.body;
+    const { items, shippingAddress, itemsPrice, shippingPrice, totalPrice } = req.body;
     if (!items?.length) return res.status(400).json({ error: 'No items in order' });
 
-    // Verify stock and calculate total
-    let total = 0;
+    // Verify stock
     for (const item of items) {
       const product = await prisma.product.findUnique({
         where: { id: item.productId }
@@ -17,7 +16,6 @@ router.post('/', protect, async (req, res) => {
       if (!product) return res.status(404).json({ error: `Product ${item.productId} not found` });
       if (product.countInStock < item.quantity)
         return res.status(400).json({ error: `${product.name} is out of stock` });
-      total += product.price * item.quantity;
     }
 
     // Create order
@@ -25,7 +23,10 @@ router.post('/', protect, async (req, res) => {
       data: {
         userId: req.user.id,
         shippingAddress: JSON.stringify(shippingAddress),
-        total,
+        itemsPrice: Number(itemsPrice),
+        shippingPrice: Number(shippingPrice),
+        total: Number(totalPrice),
+        status: 'pending_payment',
         items: {
           create: items.map(item => ({
             productId: item.productId,
@@ -57,7 +58,10 @@ router.post('/', protect, async (req, res) => {
 router.get('/myorders', protect, async (req, res) => {
   try {
     const orders = await prisma.order.findMany({
-      where: { userId: req.user.id },
+      where: { 
+        userId: req.user.id,
+        status: { not: 'pending_payment' }
+      },
       include: { items: { include: { product: true } } },
       orderBy: { createdAt: 'desc' }
     });
