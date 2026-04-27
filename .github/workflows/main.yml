@@ -27,7 +27,12 @@ jobs:
         cd server && npm install && npx prisma generate
         cd ../client && npm install --legacy-peer-deps
         
-    - name: Lint and Test Server
+    - name: Test Server
+      env:
+        DATABASE_URL: "file:./dev.db"
+        JWT_SECRET: "test_secret"
+        RAZORPAY_KEY_ID: "rzp_test_mock"
+        RAZORPAY_KEY_SECRET: "mock_secret"
       run: |
         cd server
         npm test
