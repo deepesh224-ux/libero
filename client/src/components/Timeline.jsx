@@ -28,6 +28,7 @@ const Timeline = () => {
                         scrub: 0.8,
                         invalidateOnRefresh: true,
                         refreshPriority: -1,
+                        markers: false
                     }
                 });
 
@@ -43,6 +44,7 @@ const Timeline = () => {
                         start: 'top 80%',
                         toggleActions: 'play none none reverse',
                         refreshPriority: -1,
+                        markers: false
                     }
                 });
 

@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../services/api';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001';
-
 const Reviews = () => {
     const [reviews, setReviews] = useState([]);
 
     useEffect(() => {
-        axios.get(`${API_URL}/api/reviews`)
+        api.get('/reviews/site')
             .then(res => setReviews(res.data))
             .catch(err => console.error(err));
 

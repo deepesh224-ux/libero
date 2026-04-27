@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../services/api';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001';
 
 const Newsletter = () => {
     const [email, setEmail] = useState('');
@@ -10,7 +9,7 @@ const Newsletter = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post(`${API_URL}/api/newsletter`, { email });
+            const res = await api.post('/newsletter', { email });
             setStatus(res.data.message || 'Subscribed!');
             setEmail('');
         } catch (error) {
@@ -33,7 +32,7 @@ const Newsletter = () => {
                 />
                 <button type="submit" className="btn-red">JOIN</button>
             </form>
-            {status && <span style={{display: 'block', color: 'var(--primary)', marginBottom: '10px'}}>{status}</span>}
+            {status && <span style={{display: 'block', color: '#E8E8E8', marginBottom: '10px'}}>{status}</span>}
             <span className="nl-count">★ 8,400+ collectors already inside</span>
         </section>
     );

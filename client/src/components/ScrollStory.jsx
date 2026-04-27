@@ -14,11 +14,14 @@ const ScrollStory = ({ setActivePanel, setAutoRotating }) => {
 
     useEffect(() => {
         const panels = [0, 1, 2, 3, 4];
+        const triggers = [];
+
         panels.forEach((p) => {
-            ScrollTrigger.create({
+            const t = ScrollTrigger.create({
                 trigger: '#story-outer',
                 start: `${p * 20}% top`,
                 end: `${(p + 1) * 20}% top`,
+                markers: false, // Ensure no debug dots
                 onToggle: self => {
                     if (self.isActive) {
                         setCurrent(p);
@@ -27,6 +30,7 @@ const ScrollStory = ({ setActivePanel, setAutoRotating }) => {
                     }
                 }
             });
+            triggers.push(t);
         });
 
         const st = ScrollTrigger.create({
@@ -34,10 +38,10 @@ const ScrollStory = ({ setActivePanel, setAutoRotating }) => {
             start: 'top bottom',
             onLeaveBack: () => setAutoRotating(true)
         });
+        triggers.push(st);
 
         return () => {
-             // We won't kill all triggers here to match the cleanup of parent App
-             // The main cleanup will handle destroying scroll triggers.
+            triggers.forEach(t => t.kill());
         };
     }, [setActivePanel, setAutoRotating]);
 
