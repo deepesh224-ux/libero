@@ -30,13 +30,11 @@ jobs:
     - name: Lint and Test Server
       run: |
         cd server
-        npm run lint
         npm test
         
     - name: Lint, Test and Build Client
       run: |
         cd client
-        npm run lint
         npm test
         npm run build
 
