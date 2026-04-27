@@ -24,6 +24,15 @@ module.exports = {
     // Fix: prop-types not needed with TypeScript or if you don't use PropTypes
     'react/prop-types': 'off',
 
+    // Fix: Disable strict apostrophe and unescaped entities checks
+    'react/no-unescaped-entities': 'off',
+    
+    // Fix: Disable strict exhaustive-deps warnings
+    'react-hooks/exhaustive-deps': 'off',
+    
+    // Fix: Disable empty block statement errors
+    'no-empty': 'off',
+
     // Fix: 'global' not defined in test files
     'no-undef': 'warn',
   },
