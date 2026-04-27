@@ -7,8 +7,8 @@ const { protect } = require('../middleware/auth');
 const router = express.Router();
 
 const razorpay = new Razorpay({
-    key_id: process.env.RAZORPAY_KEY_ID,
-    key_secret: process.env.RAZORPAY_KEY_SECRET,
+    key_id: process.env.RAZORPAY_KEY_ID || 'mock_key_id_for_tests',
+    key_secret: process.env.RAZORPAY_KEY_SECRET || 'mock_key_secret_for_tests',
 });
 
 // ── CREATE ORDER (RAZORPAY side) ─────────────────────────────────────────────
