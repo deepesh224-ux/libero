@@ -16,6 +16,7 @@ env:
   CLIENT_TASK_DEFINITION: .aws/client-task-def.json
   SERVER_CONTAINER_NAME: server
   CLIENT_CONTAINER_NAME: client
+  ALB_DNS: football-alb-1862504128.us-east-1.elb.amazonaws.com
 
 permissions:
   contents: read
@@ -95,6 +96,11 @@ jobs:
           cluster: ${{ env.ECS_CLUSTER }}
           wait-for-service-stability: false
 
+      - name: Deployment Summary
+        run: |
+          echo "✅ Deployment complete!"
+          echo "🌐 Frontend: http://${{ env.ALB_DNS }}"
+          echo "🔌 Backend:  http://${{ env.ALB_DNS }}:5001/api/products"
       - name: Deploy client to Amazon ECS
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
