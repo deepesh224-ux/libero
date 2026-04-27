@@ -1,8 +1,8 @@
 # Production Dockerfile for Server
-FROM node:20-alpine AS builder
+FROM node:20-slim AS builder
 
-# Install OpenSSL (required by Prisma)
-RUN apk add --no-cache openssl
+# Install OpenSSL and other deps required by Prisma
+RUN apt-get update -y && apt-get install -y openssl && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
@@ -13,13 +13,11 @@ COPY prisma ./prisma
 RUN npx prisma generate
 
 COPY . .
-# If there's a build step for the server (e.g. TS), run it here
-# RUN npm run build
 
-FROM node:20-alpine
+FROM node:20-slim
 
 # Install OpenSSL (required by Prisma at runtime)
-RUN apk add --no-cache openssl
+RUN apt-get update -y && apt-get install -y openssl && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
@@ -30,5 +28,5 @@ COPY . .
 
 EXPOSE 5001
 
-# For production, we sync the DB then start the server
+# Sync DB schema then start the server
 CMD npx prisma db push && node src/index.js
