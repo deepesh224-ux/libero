@@ -99,8 +99,8 @@ const AccountPage = () => {
                 ) : !orders || orders.length === 0 ? (
                     <div className="empty-orders">
                         <div className="empty-icon">📦</div>
-                        <h3>You haven&apos;t placed any orders yet</h3>
-                        <p>When you do, they&apos;ll appear here with their tracking status.</p>
+                        <h3>You haven't placed any orders yet</h3>
+                        <p>When you do, they'll appear here with their tracking status.</p>
                         <Link to="/" className="shop-cta">SHOP NOW</Link>
                     </div>
                 ) : (

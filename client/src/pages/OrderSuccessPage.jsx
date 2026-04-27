@@ -22,7 +22,7 @@ const OrderSuccessPage = () => {
                 const { data } = await api.get(`/orders/${orderId}`);
                 // Parse shippingAddress if it's stored as a string
                 if (data && typeof data.shippingAddress === 'string') {
-                    try { data.shippingAddress = JSON.parse(data.shippingAddress); } catch(e) { /* ignore */ }
+                    try { data.shippingAddress = JSON.parse(data.shippingAddress); } catch(e) {}
                 }
                 setOrder(data);
             } catch (err) {
@@ -48,7 +48,7 @@ const OrderSuccessPage = () => {
         <div className="order-success-status error-state">
             <div className="error-icon">⚠️</div>
             <h2>ORDER NOT FOUND</h2>
-            <p>We couldn&apos;t load your order details. Check your account page for order history.</p>
+            <p>We couldn't load your order details. Check your account page for order history.</p>
             <div className="error-actions">
                 <Link to="/" className="btn-p">CONTINUE SHOPPING</Link>
                 <Link to="/account" className="btn-s">VIEW MY ORDERS</Link>
