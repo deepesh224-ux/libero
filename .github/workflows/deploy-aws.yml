@@ -70,6 +70,29 @@ jobs:
           docker push $ECR_REGISTRY/$ECR_REPOSITORY_CLIENT:latest
           echo "image=$ECR_REGISTRY/$ECR_REPOSITORY_CLIENT:$IMAGE_TAG" >> $GITHUB_OUTPUT
 
+      # Inject secrets into server task definition
+      - name: Inject secrets into server task definition
+        run: |
+          sed -i 's|PLACEHOLDER.*JWT_SECRET.*|${{ secrets.JWT_SECRET }}|g' ${{ env.SERVER_TASK_DEFINITION }} || true
+          # Replace placeholder values with real secrets
+          python3 -c "
+          import json, sys
+          with open('${{ env.SERVER_TASK_DEFINITION }}') as f:
+              td = json.load(f)
+          env = td['containerDefinitions'][0]['environment']
+          secrets = {
+              'JWT_SECRET': '${{ secrets.JWT_SECRET }}',
+              'RAZORPAY_KEY_ID': '${{ secrets.RAZORPAY_KEY_ID }}',
+              'RAZORPAY_KEY_SECRET': '${{ secrets.RAZORPAY_KEY_SECRET }}',
+          }
+          for e in env:
+              if e['name'] in secrets:
+                  e['value'] = secrets[e['name']]
+          with open('${{ env.SERVER_TASK_DEFINITION }}', 'w') as f:
+              json.dump(td, f, indent=2)
+          print('✅ Secrets injected into task definition')
+          "
+
       # Update Task Definitions
       - name: Fill in the new image ID in the server task definition
         id: task-def-server
