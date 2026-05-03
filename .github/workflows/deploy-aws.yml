@@ -112,7 +112,7 @@ jobs:
 
       # Deploy to ECS
       - name: Deploy server to Amazon ECS
-        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v2
         with:
           task-definition: ${{ steps.task-def-server.outputs.task-definition }}
           service: ${{ env.ECS_SERVICE_SERVER }}
@@ -125,7 +125,7 @@ jobs:
           echo "🌐 Frontend: http://${{ env.ALB_DNS }}"
           echo "🔌 Backend:  http://${{ env.ALB_DNS }}:5001/api/products"
       - name: Deploy client to Amazon ECS
-        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v2
         with:
           task-definition: ${{ steps.task-def-client.outputs.task-definition }}
           service: ${{ env.ECS_SERVICE_CLIENT }}
